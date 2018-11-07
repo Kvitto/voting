@@ -10,15 +10,23 @@
 
     <version>1.0-SNAPSHOT</version>
 
+
+
+<!-- PROPERTIES PROPERTIES PROPERTIES PROPERTIES PROPERTIES PROPERTIES PROPERTIES PROPERTIES -->
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
 
+    </properties>
+<!-- PROPERTIES PROPERTIES PROPERTIES PROPERTIES PROPERTIES PROPERTIES PROPERTIES PROPERTIES -->
+
+
+
+<!-- BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD -->
     <build>
         <finalName>voting</finalName>
-        <defaultGoal>install</defaultGoal>
+        <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -31,7 +39,11 @@
             </plugin>
         </plugins>
     </build>
+<!-- BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD -->
 
+
+
+<!-- DEPENDENCIES DEPENDENCIES DEPENDENCIES DEPENDENCIES DEPENDENCIES DEPENDENCIES DEPENDENCIES -->
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -39,9 +51,16 @@
             <version>5.0.9.RELEASE</version>
         </dependency>
     </dependencies>
+<!-- DEPENDENCIES DEPENDENCIES DEPENDENCIES DEPENDENCIES DEPENDENCIES DEPENDENCIES DEPENDENCIES -->
 
+
+
+<!-- PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE -->
     <profiles>
     </profiles>
+<!-- PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE PROFILE -->
+
+
 
     <dependencyManagement>
     </dependencyManagement>
