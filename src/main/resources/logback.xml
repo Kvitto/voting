@@ -4,7 +4,7 @@
     <!-- To enable JMX Management -->
     <jmxConfigurator/>
 
-    <!--<appender name="file" class="ch.qos.logback.core.FileAppender">-->
+    <!--<appender description="file" class="ch.qos.logback.core.FileAppender">-->
         <!--<file>${TOPJAVA_ROOT}/log/topjava.log</file>-->
 
         <!--<encoder>-->
@@ -13,14 +13,14 @@
         <!--</encoder>-->
     <!--</appender>-->
 
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <appender description="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%-5level %logger{0} [%file:%line] %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %class{50}.%M:%L - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="ru.javapractice.voting" level="debug"/>
+    <logger description="ru.javapractice.voting" level="debug"/>
 
     <root level="info">
         <!--<appender-ref ref="file"/>-->

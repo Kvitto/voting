@@ -2,7 +2,6 @@ package ru.javapractice.voting.repository;
 
 import ru.javapractice.voting.model.Meal;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MealRepository {

@@ -1,42 +1,60 @@
 package ru.javapractice.voting.model;
 
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Date;
+import java.util.List;
 
-public class Restaurant {
+@Entity
+@Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "restaurants_unique_email_idx")})
+public class Restaurant extends AbstractNamedEntity {
 
-    private Long id;
-    private String name;
+    @Column(name = "email", nullable = false, unique = true)
+    @Email
+    @NotBlank
+    @Size(max = 100)
     private String email;
+
+    @Column(name = "phone", nullable = false)
+    @NotBlank
+    @Size(min = 5, max = 15)
     private Integer phone;
-    private LocalDateTime registered;
-    private boolean enabled;
+
+    @Column(name = "registered", columnDefinition = "timestamp default now()")
+    @NotNull
+    private Date registered = new Date();
+
+    @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
+    private boolean enabled = true;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("registered DESC")
+    protected List<Meal> meals;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("registered DESC")
+    protected List<Vote> votes;
 
     public Restaurant() {
     }
 
-    public Restaurant(String name, String email, Integer phone, LocalDateTime registered, boolean enabled) {
-        id = null;
-        this.name = name;
+    public Restaurant(Restaurant r) {
+        this(r.getId(), r.getName(), r.getEmail(), r.getPhone(), r.getRegistered(), r.isEnabled());
+    }
+
+    public Restaurant(String name, String email, Integer phone) {
+        this(null, name, email, phone, new Date(), true);
+    }
+
+    public Restaurant(Integer id, String name, String email, Integer phone, Date registered, boolean enabled) {
+        super(id, name);
         this.email = email;
         this.phone = phone;
         this.registered = registered;
         this.enabled = enabled;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {
@@ -55,11 +73,11 @@ public class Restaurant {
         this.phone = phone;
     }
 
-    public LocalDateTime getRegistered() {
+    public Date getRegistered() {
         return registered;
     }
 
-    public void setRegistered(LocalDateTime registered) {
+    public void setRegistered(Date registered) {
         this.registered = registered;
     }
 
@@ -71,8 +89,19 @@ public class Restaurant {
         this.enabled = enabled;
     }
 
-    public boolean isNew() {
-        return this.id == null;
+    public List<Meal> getMeals() {
+        return meals;
     }
 
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
 }

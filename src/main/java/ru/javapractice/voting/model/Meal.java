@@ -1,40 +1,56 @@
 package ru.javapractice.voting.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-public class Meal {
+@Entity
+@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
+public class Meal extends AbstractBaseEntity {
 
-    private Long id;
-    private String name;
+    @Column(name = "description", nullable = false)
+    @NotBlank
+    @Size(min = 2, max = 120)
+    private String description;
+
+    @Column(name = "price", nullable = false)
     private double price;
+
+    @Column(name = "date", nullable = false)
+    @NotNull
     private LocalDate registered;
-    private long restaurantId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private Restaurant restaurant;
 
     public Meal() {
     }
 
-    public Meal(String name, double price, LocalDate registered, long restaurantId) {
-        id = null;
-        this.name = name;
+    public Meal(String description, double price){
+        this(null, description, price, LocalDate.now());
+    }
+
+    public Meal(Integer id, String description, double price, LocalDate registered) {
+        super(id);
+        this.description = description;
         this.price = price;
         this.registered = registered;
-        this.restaurantId = restaurantId;
     }
 
-    public Long getId() {
-        return id;
+    public String getDescription() {
+        return description;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {
@@ -53,16 +69,11 @@ public class Meal {
         this.registered = registered;
     }
 
-    public long getRestaurantId() {
-        return restaurantId;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurantId(long restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
-
-    public boolean isNew() {
-        return this.id == null;
-    }
-
 }

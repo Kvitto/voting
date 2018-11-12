@@ -1,46 +1,37 @@
 package ru.javapractice.voting.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-public class Vote {
+@Entity
+public class Vote extends AbstractBaseEntity {
 
-    private Long id;
-    private long userId;
-    private long restaurantId;
+    @Column(name = "date", nullable = false)
+    @NotNull
     private LocalDateTime dateTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private Restaurant restaurant;
 
     public Vote() {
     }
 
-    public Vote(long userId, long restaurantId, LocalDateTime dateTime) {
-        id = null;
-        this.userId = userId;
-        this.restaurantId = restaurantId;
+    public Vote(Integer id, long userId, long restaurantId, LocalDateTime dateTime) {
+        super(id);
         this.dateTime = dateTime;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public long getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(long restaurantId) {
-        this.restaurantId = restaurantId;
     }
 
     public LocalDateTime getDateTime() {
@@ -51,8 +42,19 @@ public class Vote {
         this.dateTime = dateTime;
     }
 
-    public boolean isNew() {
-        return this.id == null;
+    public User getUser() {
+        return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 }
