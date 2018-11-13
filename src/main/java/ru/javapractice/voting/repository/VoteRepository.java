@@ -8,13 +8,13 @@ public interface VoteRepository {
     //save
     Vote save(Vote vote);
     //delete
-    boolean delete(Long id);
+    boolean delete(int id);
     //get
-    Vote get(Long id);
+    Vote get(int id);
     //get All for restaurant
-    List<Vote> getAllRestaurantVote(Long restaurantId);
+    List<Vote> getAllRestaurantVote(int restaurantId);
     //get All for user
-    List<Vote> getAllUserVote(Long userId);
+    List<Vote> getAllUserVote(int userId);
     //get All Vote
     List<Vote> getAll();
 }
