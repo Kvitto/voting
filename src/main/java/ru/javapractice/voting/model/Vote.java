@@ -8,11 +8,12 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "registered"}, name = "vote_unique_restaurant_registered_idx")})
 public class Vote extends AbstractBaseEntity {
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "registered", nullable = false)
     @NotNull
-    private LocalDateTime dateTime;
+    private LocalDateTime registered;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -29,17 +30,17 @@ public class Vote extends AbstractBaseEntity {
     public Vote() {
     }
 
-    public Vote(Integer id, long userId, long restaurantId, LocalDateTime dateTime) {
+    public Vote(Integer id, long userId, long restaurantId, LocalDateTime registered) {
         super(id);
-        this.dateTime = dateTime;
+        this.registered = registered;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getRegistered() {
+        return registered;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setRegistered(LocalDateTime registered) {
+        this.registered = registered;
     }
 
     public User getUser() {

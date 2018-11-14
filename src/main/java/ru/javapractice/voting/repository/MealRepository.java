@@ -15,32 +15,21 @@ public interface MealRepository extends JpaRepository<Meal, Integer> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId")
-    int delete(@Param("id") int id, @Param("userId") int userId);
+    @Query("DELETE FROM Meal m WHERE m.id=?1 AND m.restaurant.id=?2")
+    int delete(int id, int restaurant_id);
 
     @Override
     @Transactional
     Meal save(Meal item);
 
-    @Query("SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC")
-    List<Meal> getAll(@Param("userId") int userId);
+    @Query("SELECT m FROM Meal m WHERE m.restaurant.id=?1")
+    List<Meal> getAll(int restaurant_id);
 
     @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT m from Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC")
-    List<Meal> getBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("userId") int userId);
+    @Query("SELECT m from Meal m WHERE m.restaurant.id=?1 AND m.registered>?2")
+    List<Meal> getByRegistered(int restaurant_id, LocalDateTime date);
 
-    @Query("SELECT m FROM Meal m JOIN FETCH m.user WHERE m.id = ?1 and m.user.id = ?2")
-    Meal getWithUser(int id, int userId);
+    @Query("SELECT m FROM Meal m JOIN FETCH m.restaurant WHERE m.id = ?1 and m.restaurant.id = ?2")
+    Meal getByIdWithRestaurant(int id, int restaurant_id);
 }
-/*public interface MealRepository {
-    //
-    Meal save(Meal meal);
-    //
-    void delete(Long id);
-    //
-    Meal get(Long id);
-    // Get all meal for restaurant
-    List<Meal> getAllRestaurantMeal(Long restaurantId);
-    // Get all meal
-    List<Meal> getAll();
-}*/
+

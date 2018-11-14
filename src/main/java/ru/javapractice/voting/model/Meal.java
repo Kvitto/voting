@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
+@Table(name = "meals")
 public class Meal extends AbstractBaseEntity {
 
     @Column(name = "description", nullable = false)
@@ -21,7 +21,7 @@ public class Meal extends AbstractBaseEntity {
     @Column(name = "price", nullable = false)
     private double price;
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "registered", nullable = false)
     @NotNull
     private LocalDate registered;
 

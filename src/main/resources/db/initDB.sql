@@ -41,10 +41,10 @@ CREATE UNIQUE INDEX restaurants_unique_email_idx ON restaurants (email);
 CREATE TABLE votes
 (
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  date_time        TIMESTAMP DEFAULT now() NOT NULL,
+  registered        TIMESTAMP DEFAULT now() NOT NULL,
   user_id          INTEGER NOT NULL,
   restaurant_id    INTEGER NOT NULL,
-  CONSTRAINT date_user_restaurant_vote_idx UNIQUE (date, user_id),
+  CONSTRAINT date_user_restaurant_vote_idx UNIQUE (registered, user_id),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
@@ -53,7 +53,7 @@ CREATE TABLE meals
 (
   id                 INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   restaurant_id      INTEGER   NOT NULL,
-  date               DATE DEFAULT CURRENT_DATE NOT NULL,
+  registered               TIMESTAMP DEFAULT now() NOT NULL,
   description        VARCHAR   NOT NULL,
   price              DOUBLE PRECISION   NOT NULL,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
