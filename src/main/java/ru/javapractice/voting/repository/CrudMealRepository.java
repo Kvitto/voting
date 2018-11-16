@@ -7,11 +7,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javapractice.voting.model.Meal;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface MealRepository extends JpaRepository<Meal, Integer> {
+public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
     @Modifying
     @Transactional
@@ -23,11 +24,11 @@ public interface MealRepository extends JpaRepository<Meal, Integer> {
     Meal save(Meal item);
 
     @Query("SELECT m FROM Meal m WHERE m.restaurant.id=?1")
-    List<Meal> getAll(int restaurant_id);
+    List<Meal> getAllByRestaurant(int restaurant_id);
 
     @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT m from Meal m WHERE m.restaurant.id=?1 AND m.registered>?2")
-    List<Meal> getByRegistered(int restaurant_id, LocalDateTime date);
+    @Query("SELECT m from Meal m WHERE m.restaurant.id=?1 AND m.registered=?2")
+    List<Meal> getAllByRestaurantAndRegistered(int restaurant_id, LocalDate date);
 
     @Query("SELECT m FROM Meal m JOIN FETCH m.restaurant WHERE m.id = ?1 and m.restaurant.id = ?2")
     Meal getByIdWithRestaurant(int id, int restaurant_id);

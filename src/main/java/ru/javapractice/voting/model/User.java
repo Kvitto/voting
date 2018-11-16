@@ -6,8 +6,8 @@ import org.springframework.util.CollectionUtils;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -31,8 +31,7 @@ public class User extends AbstractNamedEntity {
     private String password;
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
-    @NotNull
-    private Date registered;
+    private LocalDateTime registered;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled;
@@ -45,7 +44,7 @@ public class User extends AbstractNamedEntity {
     private Set<Role> roles;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @OrderBy("dateTime DESC")
+    @OrderBy("registered DESC")
     protected List<Vote> votes;
 
 
@@ -56,10 +55,10 @@ public class User extends AbstractNamedEntity {
     }
 
     public User(String name, String email, String phone, String password, Role role, Role... roles){
-        this(null, name, email, phone, password, new Date(), true, EnumSet.of(role, roles));
+        this(null, name, email, phone, password, LocalDateTime.now(), true, EnumSet.of(role, roles));
     }
 
-    public User(Integer id, String name, String email, String phone, String password, Date registered, boolean enabled, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String phone, String password, LocalDateTime registered, boolean enabled, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.phone = phone;
@@ -93,11 +92,11 @@ public class User extends AbstractNamedEntity {
         this.password = password;
     }
 
-    public Date getRegistered() {
+    public LocalDateTime getRegistered() {
         return registered;
     }
 
-    public void setRegistered(Date registered) {
+    public void setRegistered(LocalDateTime registered) {
         this.registered = registered;
     }
 
@@ -127,5 +126,17 @@ public class User extends AbstractNamedEntity {
 
     public void setVotes(List<Vote> votes) {
         this.votes = votes;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email=" + email +
+                ", name=" + name +
+                ", registered=" + registered +
+                ", enabled=" + enabled +
+                ", roles=" + roles +
+                '}';
     }
 }

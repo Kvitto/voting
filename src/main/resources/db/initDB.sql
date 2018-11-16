@@ -53,7 +53,7 @@ CREATE TABLE meals
 (
   id                 INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   restaurant_id      INTEGER   NOT NULL,
-  registered               TIMESTAMP DEFAULT now() NOT NULL,
+  registered         DATE DEFAULT CURRENT_DATE NOT NULL,
   description        VARCHAR   NOT NULL,
   price              DOUBLE PRECISION   NOT NULL,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE

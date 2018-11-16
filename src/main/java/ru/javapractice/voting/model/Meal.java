@@ -34,6 +34,10 @@ public class Meal extends AbstractBaseEntity {
     public Meal() {
     }
 
+    public Meal(Meal meal){
+        this(meal.getId(), meal.getDescription(), meal.getPrice(), meal.getRegistered());
+    }
+
     public Meal(String description, double price){
         this(null, description, price, LocalDate.now());
     }
@@ -75,5 +79,16 @@ public class Meal extends AbstractBaseEntity {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "ID=" + id +
+                ", Restaurant_Id=" + restaurant.getId() +
+                ", registered=" + registered +
+                ", description=" + description +
+                ", price=" + price +
+                '}';
     }
 }

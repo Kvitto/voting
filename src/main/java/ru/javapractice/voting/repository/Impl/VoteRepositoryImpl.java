@@ -1,10 +1,9 @@
 package ru.javapractice.voting.repository.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.javapractice.voting.model.Vote;
-import ru.javapractice.voting.repository.VoteRepository;
+import ru.javapractice.voting.repository.CrudVoteRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class VoteRepositoryImpl {
     @Autowired
-    private VoteRepository repository;
+    private CrudVoteRepository repository;
 
     public Vote save(Vote vote) {
         return repository.save(vote);

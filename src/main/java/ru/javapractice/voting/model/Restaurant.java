@@ -104,4 +104,15 @@ public class Restaurant extends AbstractNamedEntity {
     public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email=" + email +
+                ", name=" + name +
+                ", enabled=" + enabled +
+                ", registered=" + registered +
+                '}';
+    }
 }

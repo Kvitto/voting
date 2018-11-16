@@ -5,12 +5,12 @@
 
 <!--SPRING-CONTEXT CONFIGURATION FILE || SPRING-CONTEXT CONFIGURATION FILE || SPRING-CONTEXT CONFIGURATION FILE-->
 
-    <context:annotation-config/>
+    <!--<context:annotation-config/>-->
 
-    <!--<context:component-scan base-package="ru.javapractice.**.repository"/>
+    <context:component-scan base-package="ru.javapractice.**.repository"/>
 
     <context:component-scan base-package="ru.javapractice.**.service"/>
 
-    <context:component-scan base-package="ru.javapractice.**.web"/>-->
+    <!--<context:component-scan base-package="ru.javapractice.**.web"/>-->
 
 </beans>
