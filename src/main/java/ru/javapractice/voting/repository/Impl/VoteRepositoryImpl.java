@@ -7,7 +7,6 @@ import ru.javapractice.voting.repository.CrudVoteRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class VoteRepositoryImpl {
@@ -22,8 +21,8 @@ public class VoteRepositoryImpl {
         return repository.delete(id, user_id);
     }
 
-    public Optional<Vote> findById(Integer id) {
-        return repository.findById(id);
+    public Vote get(int id) {
+        return repository.findById(id).orElse(null);
     }
 
     public List<Vote> getAllRestaurantVote(int restaurantId) {

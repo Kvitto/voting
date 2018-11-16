@@ -22,5 +22,5 @@ public interface MealService {
 
     Meal create(Meal meal, int rest_id);
 
-    Meal getWithRest(int id, int rest_id);
+    Meal getByIdForRest(int id, int rest_id);
 }

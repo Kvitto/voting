@@ -6,25 +6,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javapractice.voting.model.Meal;
 import ru.javapractice.voting.repository.CrudMealRepository;
+import ru.javapractice.voting.repository.Impl.MealRepositoryImpl;
 import ru.javapractice.voting.service.MealService;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@Transactional
 public class MealServiceImpl implements MealService {
+    private MealRepositoryImpl repository;
     @Autowired
-    CrudMealRepository repository;
+    public void setRepository(MealRepositoryImpl repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Meal get(int id/*, int rest_id*/) throws NotFoundException {
-        return repository.getOne(id);
+        return repository.get(id);
     }
 
     @Override
     public void delete(int id, int rest_id) throws NotFoundException {
-        repository.delete(repository.getOne(id));
+        repository.delete(id, rest_id);
     }
 
     @Override
@@ -48,7 +51,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal getWithRest(int id, int rest_id) {
+    public Meal getByIdForRest(int id, int rest_id) {
         return repository.getByIdWithRestaurant(id, rest_id);
     }
 }

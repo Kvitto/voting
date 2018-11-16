@@ -7,7 +7,6 @@ import ru.javapractice.voting.model.User;
 import ru.javapractice.voting.repository.CrudUserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl {
@@ -23,8 +22,8 @@ public class UserRepositoryImpl {
         return repository.save(user);
     }
 
-    public Optional<User> findById(Integer id){
-        return repository.findById(id);
+    public User get(int id){
+        return repository.findById(id).orElse(null);
     }
 
     public List<User> findAll(){

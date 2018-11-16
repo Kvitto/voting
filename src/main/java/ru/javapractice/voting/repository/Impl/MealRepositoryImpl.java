@@ -25,8 +25,8 @@ public class MealRepositoryImpl {
     }
 
     //OK
-    public Optional<Meal> findById(Integer id) {
-        return repository.findById(id);
+    public Meal get(int id) {
+        return repository.findById(id).orElse(null);
     }
 
     //OK

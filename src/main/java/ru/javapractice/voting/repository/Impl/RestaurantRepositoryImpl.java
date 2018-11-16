@@ -8,7 +8,6 @@ import ru.javapractice.voting.repository.CrudRestaurantRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class RestaurantRepositoryImpl {
@@ -24,8 +23,8 @@ public class RestaurantRepositoryImpl {
         return repository.save(restaurant);
     }
 
-    public Optional<Restaurant> findById(Integer id){
-        return repository.findById(id);
+    public Restaurant get(int id){
+        return repository.findById(id).orElse(null);
     }
 
     public List<Restaurant> findAll(){
